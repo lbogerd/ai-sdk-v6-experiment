@@ -22,7 +22,7 @@ const getWeatherServerFn = createServerFn({
     return response.text
   })
 
-export const Route = createFileRoute('/demo/ai/agent')({
+export const Route = createFileRoute('/demo/ai/weather-agent')({
   component: RouteComponent,
 })
 
