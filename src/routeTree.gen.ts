@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoPrismaRouteImport } from './routes/demo/prisma'
+import { Route as DemoAiRouteImport } from './routes/demo/ai'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
@@ -27,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
 const DemoPrismaRoute = DemoPrismaRouteImport.update({
   id: '/demo/prisma',
   path: '/demo/prisma',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoAiRoute = DemoAiRouteImport.update({
+  id: '/demo/ai',
+  path: '/demo/ai',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
@@ -67,6 +73,7 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/demo/ai': typeof DemoAiRoute
   '/demo/prisma': typeof DemoPrismaRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/demo/ai': typeof DemoAiRoute
   '/demo/prisma': typeof DemoPrismaRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -90,6 +98,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/demo/ai': typeof DemoAiRoute
   '/demo/prisma': typeof DemoPrismaRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/demo/ai'
     | '/demo/prisma'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -114,6 +124,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/demo/ai'
     | '/demo/prisma'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -125,6 +136,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/demo/ai'
     | '/demo/prisma'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -137,6 +149,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DemoAiRoute: typeof DemoAiRoute
   DemoPrismaRoute: typeof DemoPrismaRoute
   DemoApiNamesRoute: typeof DemoApiNamesRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/demo/prisma'
       fullPath: '/demo/prisma'
       preLoaderRoute: typeof DemoPrismaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/ai': {
+      id: '/demo/ai'
+      path: '/demo/ai'
+      fullPath: '/demo/ai'
+      preLoaderRoute: typeof DemoAiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/start/server-funcs': {
@@ -217,6 +237,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DemoAiRoute: DemoAiRoute,
   DemoPrismaRoute: DemoPrismaRoute,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
