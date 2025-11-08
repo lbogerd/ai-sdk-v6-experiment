@@ -23,3 +23,17 @@ export function addToCache(key: string, value: string) {
 export function clearCache(): void {
   cache.clear()
 }
+
+export function getCacheSize(): number {
+  return cache.size
+}
+
+export function getAllFromCache(): Record<string, string> {
+  const result: Record<string, string> = {}
+
+  for (const [key, value] of cache.entries()) {
+    result[key] = value
+  }
+
+  return result
+}

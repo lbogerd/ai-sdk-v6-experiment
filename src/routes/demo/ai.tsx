@@ -2,9 +2,9 @@ import { createFileRoute } from '@tanstack/react-router'
 import { createServerFn, useServerFn } from '@tanstack/react-start'
 import { generateText } from 'ai'
 import { openRouter } from '@/lib/openrouter'
-import { addToCache, getFromCache } from '@/lib/simple-cache'
+import { addToCache, getAllFromCache, getFromCache } from '@/lib/simple-cache'
 import z from 'zod'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 const generateTextServerFn = createServerFn({
   method: 'POST',
@@ -29,6 +29,12 @@ const generateTextServerFn = createServerFn({
     return result.text
   })
 
+const getCacheServerFn = createServerFn({
+  method: 'GET',
+}).handler(async () => {
+  return getAllFromCache()
+})
+
 export const Route = createFileRoute('/demo/ai')({
   component: DemoAI,
 })
@@ -37,7 +43,27 @@ function DemoAI() {
   const [prompt, setPrompt] = useState('')
   const [result, setResult] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [cache, setCache] = useState<Record<string, string> | null>(null)
+  const [cacheLoading, setCacheLoading] = useState(false)
+  const [cacheError, setCacheError] = useState<string | null>(null)
+  const [showCache, setShowCache] = useState(false)
   const generateText = useServerFn(generateTextServerFn)
+  const fetchCache = useServerFn(getCacheServerFn)
+
+  const loadCache = useCallback(async () => {
+    setCacheLoading(true)
+    setCacheError(null)
+
+    try {
+      const data = await fetchCache()
+      setCache(data)
+    } catch (error) {
+      console.error('Error fetching cache:', error)
+      setCacheError('Error fetching cache')
+    } finally {
+      setCacheLoading(false)
+    }
+  }, [fetchCache])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -49,12 +75,24 @@ function DemoAI() {
     try {
       const text = await generateText({ data: { prompt } })
       setResult(text)
+      if (showCache) {
+        void loadCache()
+      }
     } catch (error) {
       console.error('Error generating text:', error)
       setResult('Error generating text')
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleViewCache = () => {
+    setShowCache(true)
+    void loadCache()
+  }
+
+  const handleHideCache = () => {
+    setShowCache(false)
   }
 
   return (
@@ -91,6 +129,73 @@ function DemoAI() {
           <p className="whitespace-pre-wrap">{result}</p>
         </div>
       )}
+
+      <div className="mt-10">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold">Cache</h2>
+          <div className="space-x-2">
+            <button
+              type="button"
+              onClick={showCache ? () => void loadCache() : handleViewCache}
+              disabled={cacheLoading}
+              className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            >
+              {cacheLoading
+                ? 'Loading...'
+                : showCache
+                  ? 'Refresh Cache'
+                  : 'View Cache'}
+            </button>
+            {showCache && (
+              <button
+                type="button"
+                onClick={handleHideCache}
+                className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300"
+              >
+                Hide
+              </button>
+            )}
+          </div>
+        </div>
+
+        {showCache && (
+          <div className="mt-4 p-4 bg-gray-50 rounded-md border border-gray-200">
+            {cacheLoading && (
+              <p className="text-sm text-gray-600">Loading cache...</p>
+            )}
+            {cacheError && <p className="text-sm text-red-600">{cacheError}</p>}
+            {!cacheLoading &&
+              !cacheError &&
+              cache &&
+              Object.keys(cache).length === 0 && (
+                <p className="text-sm text-gray-600">Cache is empty.</p>
+              )}
+            {!cacheLoading &&
+              !cacheError &&
+              cache &&
+              Object.entries(cache).length > 0 && (
+                <ul className="space-y-3">
+                  {Object.entries(cache).map(([key, value]) => (
+                    <li
+                      key={key}
+                      className="border border-gray-200 rounded-md p-3"
+                    >
+                      <p className="text-xs font-mono text-gray-500 break-all">
+                        Hash: {key}
+                      </p>
+                      <p className="mt-2 whitespace-pre-wrap text-sm">
+                        {value}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            {!cacheLoading && !cacheError && cache === null && (
+              <p className="text-sm text-gray-600">No cache data loaded yet.</p>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
