@@ -24,7 +24,7 @@ const getCodingProblemSolutionServerFn = createServerFn({
       expectedOutcome: data.expectedOutcome,
     })
     const response = await agent.generate({
-      prompt: `Solve the following coding problem and provide the code solution:\n\n${data.problem}`,
+      prompt: `Solve the following coding problem and provide the code solution:\n\n${data.problem} \n\n Provide only the code as the final answer. Keep iteratring until the expected outcome is met.`,
     })
 
     console.log('Agent steps:', response.steps)
