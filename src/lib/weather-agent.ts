@@ -1,8 +1,9 @@
 import { ToolLoopAgent, tool } from 'ai'
 import { z } from 'zod'
+import { openRouter } from './openrouter'
 
 export const weatherAgent = new ToolLoopAgent({
-  model: 'openai/gpt-4o',
+  model: openRouter('openrouter/polaris-alpha'),
   tools: {
     weather: tool({
       description: 'Get the weather in a location (in Fahrenheit)',
@@ -26,10 +27,3 @@ export const weatherAgent = new ToolLoopAgent({
     }),
   },
 })
-
-const result = await weatherAgent.generate({
-  prompt: 'What is the weather in San Francisco in celsius?',
-})
-
-console.log(result.text) // agent's final answer
-console.log(result.steps) // steps taken by the agent

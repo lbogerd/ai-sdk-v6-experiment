@@ -35,7 +35,7 @@ const getCacheServerFn = createServerFn({
   return getAllFromCache()
 })
 
-export const Route = createFileRoute('/demo/ai')({
+export const Route = createFileRoute('/demo/ai/simple')({
   component: DemoAI,
 })
 
