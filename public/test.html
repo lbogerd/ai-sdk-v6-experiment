@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tilburg's Schônste - Pet Grooming</title>
+    <meta
+      name="description"
+      content="Tilburg's Schônste - Loving, professional pet grooming in Tilburg. Book a pampering session for your dog or cat today!"
+    />
+    <style>
+      :root {
+        --primary: #ff7a59;
+        --primary-dark: #e65f3e;
+        --accent: #ffd166;
+        --bg: #fff9f6;
+        --text: #222222;
+        --muted: #666666;
+        --radius: 14px;
+        --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.06);
+        --transition-fast: 0.25s ease;
+        --font-main:
+          system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font-main);
+        color: var(--text);
+        background: var(--bg);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(12px);
+        background: rgba(255, 249, 246, 0.96);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      }
+
+      .nav-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        font-size: 1.1rem;
+        color: #333;
+      }
+
+      .brand-logo {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 16px;
+        font-size: 0.92rem;
+        color: var(--muted);
+      }
+
+      .nav-links a {
+        padding: 6px 10px;
+        border-radius: 999px;
+        transition:
+          background var(--transition-fast),
+          color var(--transition-fast),
+          transform var(--transition-fast);
+      }
+
+      .nav-links a:hover {
+        background: var(--primary);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        padding: 9px 18px;
+        border-radius: 999px;
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        box-shadow: var(--shadow-soft);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition:
+          background var(--transition-fast),
+          transform var(--transition-fast),
+          box-shadow var(--transition-fast);
+      }
+
+      .btn-primary span.icon {
+        font-size: 1.1rem;
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      main {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 32px 18px 40px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(260px, 2.3fr);
+        gap: 32px;
+        align-items: center;
+        padding: 32px 22px;
+        margin: 18px 0 26px;
+        background: linear-gradient(135deg, #fff, #ffe9df);
+        border-radius: 26px;
+        box-shadow: var(--shadow-soft);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 11px;
+        border-radius: 999px;
+        background: rgba(255, 122, 89, 0.08);
+        color: var(--primary-dark);
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+      }
+
+      .hero-label span.badge {
+        padding: 2px 7px;
+        border-radius: 999px;
+        background: var(--primary);
+        color: #fff;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .hero h1 {
+        font-size: 2.3rem;
+        line-height: 1.15;
+        margin: 4px 0 10px;
+        color: #222;
+      }
+
+      .hero h1 span {
+        color: var(--primary-dark);
+      }
+
+      .hero p {
+        margin: 0 0 16px;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 10px;
+      }
+
+      .hero-note {
+        font-size: 0.78rem;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .hero-note span.dot {
+        width: 8px;
+        height: 8px;
+        background: #28a745;
+        border-radius: 999px;
+        box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.18);
+      }
+
+      .hero-points {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+        margin-top: 6px;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .hero-points span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .hero-points span i {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: #444;
+      }
+
+      .hero-art {
+        position: relative;
+        padding: 16px 14px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .hero-art-title {
+        font-size: 0.82rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #444;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .hero-art-title span.paw {
+        width: 18px;
+        height: 18px;
+        border-radius: 6px;
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: #fff;
+      }
+
+      .hero-art-sub {
+        font-size: 0.74rem;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+
+      .pet-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        font-size: 0.7rem;
+      }
+
+      .pet-card {
+        padding: 8px 7px;
+        border-radius: 12px;
+        background: #fff7f1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+      }
+
+      .pet-card strong {
+        font-size: 0.74rem;
+        color: #333;
+      }
+
+      .pet-card span.small {
+        font-size: 0.66rem;
+        color: var(--muted);
+      }
+
+      .pet-card span.tag {
+        margin-top: 2px;
+        display: inline-flex;
+        padding: 2px 6px;
+        border-radius: 999px;
+        background: #ffe0d1;
+        font-size: 0.6rem;
+        color: #8a3a21;
+        align-self: flex-start;
+      }
+
+      .hero-badge {
+        position: absolute;
+        right: 12px;
+        bottom: 10px;
+        padding: 6px 9px;
+        border-radius: 14px;
+        background: #222;
+        color: #fff;
+        font-size: 0.62rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+      }
+
+      .hero-badge span.main {
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .hero-badge span.sub {
+        color: #d0d0d0;
+      }
+
+      .section {
+        margin-bottom: 32px;
+      }
+
+      .section h2 {
+        font-size: 1.4rem;
+        margin: 0 0 10px;
+        color: #333;
+      }
+
+      .section p.desc {
+        margin: 0 0 16px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .service-card {
+        padding: 12px 11px;
+        border-radius: var(--radius);
+        background: #ffffff;
+        box-shadow: var(--shadow-soft);
+        font-size: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.02);
+        transition:
+          transform var(--transition-fast),
+          box-shadow var(--transition-fast),
+          border-color var(--transition-fast);
+      }
+
+      .service-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
+        border-color: rgba(255, 122, 89, 0.35);
+      }
+
+      .service-title {
+        font-weight: 600;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .service-icon {
+        width: 18px;
+        height: 18px;
+        border-radius: 6px;
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        color: #fff;
+      }
+
+      .service-desc {
+        color: var(--muted);
+      }
+
+      .service-note {
+        margin-top: 4px;
+        font-size: 0.7rem;
+        color: #999;
+      }
+
+      .highlight {
+        color: var(--primary-dark);
+        font-weight: 600;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: 2.3fr 2fr;
+        gap: 18px;
+        font-size: 0.82rem;
+      }
+
+      .info-box {
+        padding: 12px 11px;
+        background: #ffffff;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(0, 0, 0, 0.02);
+      }
+
+      .info-box h3 {
+        margin: 0 0 6px;
+        font-size: 0.96rem;
+        color: #333;
+      }
+
+      .info-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 4px;
+      }
+
+      .info-list li {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        color: var(--muted);
+      }
+
+      .info-list li span.bullet {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--primary);
+        margin-top: 4px;
+      }
+
+      .contact-details {
+        display: grid;
+        gap: 4px;
+        color: var(--muted);
+      }
+
+      .contact-details strong {
+        color: #333;
+        font-size: 0.84rem;
+      }
+
+      .whatsapp {
+        color: #25d366;
+        font-weight: 600;
+        font-size: 0.84rem;
+      }
+
+      .map-placeholder {
+        margin-top: 8px;
+        padding: 8px;
+        border-radius: 10px;
+        background: #fff7f1;
+        font-size: 0.7rem;
+        color: var(--muted);
+      }
+
+      .mini-form {
+        margin-top: 8px;
+        display: grid;
+        grid-template-columns: 1.6fr 1.4fr;
+        gap: 6px;
+        align-items: center;
+      }
+
+      .mini-form input,
+      .mini-form select {
+        padding: 7px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        font-size: 0.76rem;
+        outline: none;
+        transition:
+          border-color var(--transition-fast),
+          box-shadow var(--transition-fast);
+        font-family: inherit;
+        background: #fff;
+      }
+
+      .mini-form input:focus,
+      .mini-form select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(255, 122, 89, 0.15);
+      }
+
+      .mini-form button {
+        width: 100%;
+        padding: 7px 8px;
+        border-radius: 999px;
+        border: none;
+        background: var(--primary);
+        color: #fff;
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background var(--transition-fast),
+          box-shadow var(--transition-fast),
+          transform var(--transition-fast);
+        box-shadow: var(--shadow-soft);
+        font-family: inherit;
+      }
+
+      .mini-form button:hover {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+      }
+
+      footer {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 14px 18px 22px;
+        font-size: 0.7rem;
+        color: #999;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      footer a {
+        color: var(--primary-dark);
+        font-weight: 500;
+      }
+
+      @media (max-width: 768px) {
+        .nav-inner {
+          padding: 10px 14px;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 22px 16px 18px;
+        }
+
+        .hero h1 {
+          font-size: 1.8rem;
+        }
+
+        .hero-art {
+          margin-top: 4px;
+        }
+
+        .hero-badge {
+          bottom: 8px;
+          right: 8px;
+        }
+
+        .services-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .info-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="brand-logo">🐾</div>
+          <div>Tilburg's Schônste</div>
+        </div>
+        <nav class="nav-links">
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <button
+            class="btn-primary"
+            onclick="document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });"
+          >
+            <span class="icon">✂️</span>
+            Book now
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <div class="hero-label">
+            <span class="badge">New</span>
+            Tilburg's most loved pet grooming for every fluffy friend
+          </div>
+          <h1 id="hero-title">
+            Tilburg's <span>Schônste</span> – Gentle grooming, happy paws.
+          </h1>
+          <p>
+            Professional dog and cat grooming in Tilburg with a soft touch. From
+            quick washes to full spa treatments – your pet leaves fresh,
+            relaxed, and absolutely schôn.
+          </p>
+          <div class="hero-cta">
+            <button
+              class="btn-primary"
+              onclick="document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });"
+            >
+              <span class="icon">📅</span>
+              Plan a visit
+            </button>
+            <div class="hero-note">
+              <span class="dot"></span>
+              Same-week appointments often available.
+            </div>
+          </div>
+          <div class="hero-points">
+            <span><i>✓</i> Fear-free, patient approach</span>
+            <span><i>✓</i> Small salon, big heart</span>
+            <span><i>✓</i> Fresh Tilburg vibes</span>
+          </div>
+        </div>
+
+        <aside class="hero-art" aria-label="Pet grooming highlight">
+          <div class="hero-art-title">
+            <span class="paw">🐾</span>
+            Today at Tilburg's Schônste
+          </div>
+          <div class="hero-art-sub">
+            Three happy guests leaving softer, safer & stylish.
+          </div>
+          <div class="pet-grid">
+            <div class="pet-card">
+              <strong>Boef – Labradoodle</strong>
+              <span class="small">Full groom & de-matting</span>
+              <span class="tag">Sensitive skin care</span>
+            </div>
+            <div class="pet-card">
+              <strong>Pixie – Pomeranian</strong>
+              <span class="small">Bath, trim & paws</span>
+              <span class="tag">Show fluffy finish</span>
+            </div>
+            <div class="pet-card">
+              <strong>Milo – European Shorthair</strong>
+              <span class="small">De-shedding & nails</span>
+              <span class="tag">Stress-aware session</span>
+            </div>
+          </div>
+          <div class="hero-badge">
+            <span class="main">Now accepting new clients</span>
+            <span class="sub">Tilburg West • Free intro chat</span>
+          </div>
+        </aside>
+      </section>
+
+      <section id="services" class="section" aria-labelledby="services-title">
+        <h2 id="services-title">Services for every coat and character</h2>
+        <p class="desc">
+          A simple selection to keep your best friend clean, comfortable, and
+          camera-ready. Custom packages available for all breeds and
+          temperaments.
+        </p>
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-title">
+              <div class="service-icon">🛁</div>
+              Fresh & Fluffy Wash
+            </div>
+            <div class="service-desc">
+              Gentle wash, blow-dry, brushing and perfume-free finishing spray.
+              Ideal for in-between grooms.
+            </div>
+            <div class="service-note">From €25 (size-dependent)</div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-title">
+              <div class="service-icon">✂️</div>
+              Full Groom Makeover
+            </div>
+            <div class="service-desc">
+              Breed-appropriate cut or cute comfort style, bath, blow-dry, paws,
+              ears & hygiene trim.
+            </div>
+            <div class="service-note">From €45</div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-title">
+              <div class="service-icon">🐾</div>
+              Pawdicure & Nail Care
+            </div>
+            <div class="service-desc">
+              Quick, stress-conscious nail trim and paw care for dogs & cats.
+            </div>
+            <div class="service-note">Walk-in by appointment</div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-title">
+              <div class="service-icon">🐱</div>
+              Cat Comfort Session
+            </div>
+            <div class="service-desc">
+              Calm handling, de-shedding, minor knots, nail trim. No loud
+              dryers, extra patience.
+            </div>
+            <div class="service-note">Limited spots for quiet times</div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-title">
+              <div class="service-icon">🌿</div>
+              Sensitive Spa
+            </div>
+            <div class="service-desc">
+              Hypoallergenic products and tailored care for sensitive skin or
+              rescue pets.
+            </div>
+            <div class="service-note">Free consult included</div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-title">
+              <div class="service-icon">⭐</div>
+              Puppy First Visit
+            </div>
+            <div class="service-desc">
+              Short, positive introduction: brush, paws, a little bath &
+              cuddles.
+            </div>
+            <div class="service-note">Building confidence from day one</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="section" aria-labelledby="about-title">
+        <div class="info-grid">
+          <div class="info-box">
+            <h2 id="about-title">Why Tilburg's Schônste?</h2>
+            <p class="desc" style="margin-bottom: 6px">
+              A cosy, one-on-one salon where every animal is treated like our
+              own. Clear communication, no rush, and always focused on your
+              pet's wellbeing.
+            </p>
+            <ul class="info-list">
+              <li>
+                <span class="bullet"></span
+                ><span>One pet at a time for a calm environment.</span>
+              </li>
+              <li>
+                <span class="bullet"></span
+                ><span
+                  >Transparent advice: we tell you what your pet really needs,
+                  not what sounds fancy.</span
+                >
+              </li>
+              <li>
+                <span class="bullet"></span
+                ><span>Modern techniques and safe, high-quality products.</span>
+              </li>
+              <li>
+                <span class="bullet"></span
+                ><span
+                  >Located in Tilburg, easy to reach by bike, car and
+                  paws.</span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="info-box" id="booking">
+            <h3>Quick booking request</h3>
+            <div class="contact-details">
+              <div>
+                <strong>WhatsApp:</strong>
+                <span class="whatsapp">+31 6 0000 0000</span>
+              </div>
+              <div><strong>Email:</strong> hello@tilburgsschonste.nl</div>
+              <div>
+                <strong>Location:</strong> Tilburg West (exact address on
+                confirmation)
+              </div>
+            </div>
+            <div class="map-placeholder">
+              Prefer to call or message? Send your pet's name, breed, and
+              preferred day via WhatsApp for the fastest reply.
+            </div>
+            <form
+              class="mini-form"
+              onsubmit="event.preventDefault(); alert('Thank you! We will contact you shortly to confirm your appointment.');"
+            >
+              <input type="text" name="name" placeholder="Your name" required />
+              <input
+                type="text"
+                name="pet"
+                placeholder="Pet name & breed"
+                required
+              />
+              <select name="service" required>
+                <option value="" disabled selected>Choose service</option>
+                <option>Fresh & Fluffy Wash</option>
+                <option>Full Groom Makeover</option>
+                <option>Pawdicure & Nail Care</option>
+                <option>Cat Comfort Session</option>
+                <option>Sensitive Spa</option>
+                <option>Puppy First Visit</option>
+              </select>
+              <button type="submit">Request slot</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section" aria-labelledby="contact-title">
+        <div class="info-box">
+          <h2 id="contact-title">Contact & opening hours</h2>
+          <div class="info-grid" style="margin-top: 4px; gap: 12px">
+            <div>
+              <ul class="info-list">
+                <li>
+                  <span class="bullet"></span
+                  ><span><strong>Mon – Fri:</strong> 09:00 – 18:00</span>
+                </li>
+                <li>
+                  <span class="bullet"></span
+                  ><span><strong>Sat:</strong> 10:00 – 16:00</span>
+                </li>
+                <li>
+                  <span class="bullet"></span
+                  ><span><strong>Sun:</strong> Closed (cuddle day)</span>
+                </li>
+              </ul>
+            </div>
+            <div class="contact-details">
+              <div><strong>Phone / WhatsApp:</strong> +31 6 0000 0000</div>
+              <div><strong>Email:</strong> hello@tilburgsschonste.nl</div>
+              <div><strong>Instagram:</strong> @tilburgs_schonste</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        © <span id="year"></span> Tilburg's Schônste. All rights reserved.
+      </div>
+      <div>Simple starter page – ready to grow with your brand.</div>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear()
+    </script>
+  </body>
+</html>
