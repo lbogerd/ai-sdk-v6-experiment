@@ -11,9 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoPrismaRouteImport } from './routes/demo/prisma'
+import { Route as DemoAiRouteImport } from './routes/demo/ai'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
+import { Route as DemoApiChatRouteImport } from './routes/demo/api.chat'
 import { Route as DemoAiWeatherAgentRouteImport } from './routes/demo/ai.weather-agent'
 import { Route as DemoAiSimpleRouteImport } from './routes/demo/ai.simple'
 import { Route as DemoAiCodingAgentRouteImport } from './routes/demo/ai.coding-agent'
@@ -32,6 +34,11 @@ const DemoPrismaRoute = DemoPrismaRouteImport.update({
   path: '/demo/prisma',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DemoAiRoute = DemoAiRouteImport.update({
+  id: '/demo/ai',
+  path: '/demo/ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
   id: '/demo/start/server-funcs',
   path: '/demo/start/server-funcs',
@@ -47,20 +54,25 @@ const DemoApiNamesRoute = DemoApiNamesRouteImport.update({
   path: '/demo/api/names',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoAiWeatherAgentRoute = DemoAiWeatherAgentRouteImport.update({
-  id: '/demo/ai/weather-agent',
-  path: '/demo/ai/weather-agent',
+const DemoApiChatRoute = DemoApiChatRouteImport.update({
+  id: '/demo/api/chat',
+  path: '/demo/api/chat',
   getParentRoute: () => rootRouteImport,
+} as any)
+const DemoAiWeatherAgentRoute = DemoAiWeatherAgentRouteImport.update({
+  id: '/weather-agent',
+  path: '/weather-agent',
+  getParentRoute: () => DemoAiRoute,
 } as any)
 const DemoAiSimpleRoute = DemoAiSimpleRouteImport.update({
-  id: '/demo/ai/simple',
-  path: '/demo/ai/simple',
-  getParentRoute: () => rootRouteImport,
+  id: '/simple',
+  path: '/simple',
+  getParentRoute: () => DemoAiRoute,
 } as any)
 const DemoAiCodingAgentRoute = DemoAiCodingAgentRouteImport.update({
-  id: '/demo/ai/coding-agent',
-  path: '/demo/ai/coding-agent',
-  getParentRoute: () => rootRouteImport,
+  id: '/coding-agent',
+  path: '/coding-agent',
+  getParentRoute: () => DemoAiRoute,
 } as any)
 const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
   id: '/demo/start/ssr/',
@@ -85,10 +97,12 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/demo/ai': typeof DemoAiRouteWithChildren
   '/demo/prisma': typeof DemoPrismaRoute
   '/demo/ai/coding-agent': typeof DemoAiCodingAgentRoute
   '/demo/ai/simple': typeof DemoAiSimpleRoute
   '/demo/ai/weather-agent': typeof DemoAiWeatherAgentRoute
+  '/demo/api/chat': typeof DemoApiChatRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -99,10 +113,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/demo/ai': typeof DemoAiRouteWithChildren
   '/demo/prisma': typeof DemoPrismaRoute
   '/demo/ai/coding-agent': typeof DemoAiCodingAgentRoute
   '/demo/ai/simple': typeof DemoAiSimpleRoute
   '/demo/ai/weather-agent': typeof DemoAiWeatherAgentRoute
+  '/demo/api/chat': typeof DemoApiChatRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -114,10 +130,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/demo/ai': typeof DemoAiRouteWithChildren
   '/demo/prisma': typeof DemoPrismaRoute
   '/demo/ai/coding-agent': typeof DemoAiCodingAgentRoute
   '/demo/ai/simple': typeof DemoAiSimpleRoute
   '/demo/ai/weather-agent': typeof DemoAiWeatherAgentRoute
+  '/demo/api/chat': typeof DemoApiChatRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -130,10 +148,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/demo/ai'
     | '/demo/prisma'
     | '/demo/ai/coding-agent'
     | '/demo/ai/simple'
     | '/demo/ai/weather-agent'
+    | '/demo/api/chat'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -144,10 +164,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/demo/ai'
     | '/demo/prisma'
     | '/demo/ai/coding-agent'
     | '/demo/ai/simple'
     | '/demo/ai/weather-agent'
+    | '/demo/api/chat'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -158,10 +180,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/demo/ai'
     | '/demo/prisma'
     | '/demo/ai/coding-agent'
     | '/demo/ai/simple'
     | '/demo/ai/weather-agent'
+    | '/demo/api/chat'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -173,10 +197,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DemoAiRoute: typeof DemoAiRouteWithChildren
   DemoPrismaRoute: typeof DemoPrismaRoute
-  DemoAiCodingAgentRoute: typeof DemoAiCodingAgentRoute
-  DemoAiSimpleRoute: typeof DemoAiSimpleRoute
-  DemoAiWeatherAgentRoute: typeof DemoAiWeatherAgentRoute
+  DemoApiChatRoute: typeof DemoApiChatRoute
   DemoApiNamesRoute: typeof DemoApiNamesRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
@@ -202,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoPrismaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/demo/ai': {
+      id: '/demo/ai'
+      path: '/demo/ai'
+      fullPath: '/demo/ai'
+      preLoaderRoute: typeof DemoAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/demo/start/server-funcs': {
       id: '/demo/start/server-funcs'
       path: '/demo/start/server-funcs'
@@ -223,26 +253,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoApiNamesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/demo/api/chat': {
+      id: '/demo/api/chat'
+      path: '/demo/api/chat'
+      fullPath: '/demo/api/chat'
+      preLoaderRoute: typeof DemoApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/demo/ai/weather-agent': {
       id: '/demo/ai/weather-agent'
-      path: '/demo/ai/weather-agent'
+      path: '/weather-agent'
       fullPath: '/demo/ai/weather-agent'
       preLoaderRoute: typeof DemoAiWeatherAgentRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof DemoAiRoute
     }
     '/demo/ai/simple': {
       id: '/demo/ai/simple'
-      path: '/demo/ai/simple'
+      path: '/simple'
       fullPath: '/demo/ai/simple'
       preLoaderRoute: typeof DemoAiSimpleRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof DemoAiRoute
     }
     '/demo/ai/coding-agent': {
       id: '/demo/ai/coding-agent'
-      path: '/demo/ai/coding-agent'
+      path: '/coding-agent'
       fullPath: '/demo/ai/coding-agent'
       preLoaderRoute: typeof DemoAiCodingAgentRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof DemoAiRoute
     }
     '/demo/start/ssr/': {
       id: '/demo/start/ssr/'
@@ -275,12 +312,26 @@ declare module '@tanstack/react-router' {
   }
 }
 
-const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  DemoPrismaRoute: DemoPrismaRoute,
+interface DemoAiRouteChildren {
+  DemoAiCodingAgentRoute: typeof DemoAiCodingAgentRoute
+  DemoAiSimpleRoute: typeof DemoAiSimpleRoute
+  DemoAiWeatherAgentRoute: typeof DemoAiWeatherAgentRoute
+}
+
+const DemoAiRouteChildren: DemoAiRouteChildren = {
   DemoAiCodingAgentRoute: DemoAiCodingAgentRoute,
   DemoAiSimpleRoute: DemoAiSimpleRoute,
   DemoAiWeatherAgentRoute: DemoAiWeatherAgentRoute,
+}
+
+const DemoAiRouteWithChildren =
+  DemoAiRoute._addFileChildren(DemoAiRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  DemoAiRoute: DemoAiRouteWithChildren,
+  DemoPrismaRoute: DemoPrismaRoute,
+  DemoApiChatRoute: DemoApiChatRoute,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
